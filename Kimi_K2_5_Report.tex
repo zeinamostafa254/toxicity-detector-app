@@ -1,0 +1,505 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=1.6cm, right=1.6cm, top=1.8cm, bottom=2cm]{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric}
+\title{Kimi k2.5 LLM Report}
+\author{Zeina Mostafa Ali }
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Moonshot AI developed Kimi K2.5, released on January 27, 2026. It is particularly interesting because it is not simply a text LLM with an image model attached. Moonshot describes it as a native multimodal agentic model, trained through continued pretraining on approximately 15 trillion mixed visual and text tokens on top of Kimi K2 Base.
+
+The main ideas behind Kimi K2.5 are:
+
+\begin{itemize}
+\item Mixture-of-Experts (MoE) architecture
+\item Native multimodal understanding
+\item Long-context processing
+\item Strong reasoning and coding capabilities
+\item Support for tool use and agentic workflows
+\item Agent Swarm for solving complex tasks using multiple agents
+\end{itemize}
+
+\section{Architecture}
+Kimi K2.5 uses a Mixture-of-Experts (MoE) architecture. Instead of activating all of its parameters for every input token, the model uses a routing mechanism to select a subset of experts.
+
+The main architectural specifications are:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+
+Property & Kimi K2.5 \\
+
+Total parameters & Approximately 1 trillion \\
+Active parameters & Approximately 32 billion per token \\
+Number of layers & 61 \\
+Attention heads & 64 \\
+Number of experts & 384 \\
+Selected experts per token & 8 \\
+Vocabulary size & 160K tokens \\
+Attention mechanism & Multi-head Latent Attention (MLA) \\
+Activation function & SwiGLU \\
+Vision encoder & MoonViT \\
+Context length & 256K tokens \\
+\hline
+\end{tabular}
+\caption{Main architectural characteristics of Kimi K2.5}
+\end{table}
+
+The important point is that Kimi K2.5 has approximately 1 trillion total parameters, but only around 32 billion parameters are activated for each token. This makes the model computationally more efficient than a dense model with 1 trillion parameters. However, the model still requires a large amount of memory because the complete set of parameters has to be stored when deploying the model.
+
+\section{Training Approach}
+Kimi K2.5 was developed by continuing the pretraining of Kimi K2 Base.
+
+Moonshot AI reports that Kimi K2.5 was trained on approximately 15 trillion mixed visual and text tokens.
+
+This is important because visual information is part of the model's training process rather than being treated as an entirely separate capability.
+
+The training approach therefore allows the model to learn relationships between text and visual information.
+
+This contributes to capabilities such as:
+
+\begin{itemize}
+\item Image understanding
+\item Document understanding
+\item Visual question answering
+\item Image-to-code generation
+\item Visual reasoning
+\item Video understanding
+\end{itemize}
+
+
+
+
+
+
+\section{Multimodal Capabilities}
+
+Kimi K2.5 is a native multimodal model.
+
+A multimodal model can process more than one type of information. In the case of Kimi K2.5, the main focus is on text and visual information.
+
+For example, a user can provide an image of a user interface and ask the model to explain the interface or generate code for it.
+
+A simplified workflow is:
+
+\[
+\text{Image} + \text{Text Prompt}
+\rightarrow
+\text{Kimi K2.5}
+\rightarrow
+\text{Understanding or Generated Output}
+\]
+
+Some practical multimodal applications include:
+
+\begin{itemize}
+\item Understanding images
+\item Analyzing documents
+\item Understanding screenshots
+\item Generating code from visual designs
+\item Debugging interfaces using screenshots
+\item Video understanding
+\end{itemize}
+
+This makes Kimi K2.5 useful for applications where the input is not purely text.
+
+\section{Context Window}
+
+Kimi K2.5 supports a context window of approximately 256K tokens.
+
+A context window determines how much information a model can consider during a single interaction.
+
+A large context window is useful for:
+
+\begin{itemize}
+\item Large documents
+\item Long conversations
+\item Large software repositories
+\item Research tasks
+\item Long code files
+\item Complex agent workflows
+\end{itemize}
+
+For example, an AI coding assistant can provide a large amount of source code to the model and ask it to analyze relationships between different parts of the project.
+
+However, a large context window does not guarantee that the model will perfectly understand every piece of information inside it. Retrieval quality and reasoning ability are still important.
+
+\section{Reasoning Capabilities}
+
+Kimi K2.5 includes a thinking mode designed for difficult reasoning tasks.
+
+Moonshot AI reports strong results on several reasoning and mathematical benchmarks.
+
+Some reported results include:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\hline
+Benchmark & Kimi K2.5 Score \\
+\hline
+AIME 2025 & 96.1 \\
+GPQA Diamond & 87.6 \\
+MMLU-Pro & 87.1 \\
+MATH-500 & 98.0 \\
+MathVista & 90.1 \\
+MathVision & 84.2 \\
+\hline
+\end{tabular}
+\caption{Selected reasoning and mathematical benchmark results}
+\end{table}
+
+These benchmarks evaluate different aspects of reasoning.
+
+For example, mathematical benchmarks test mathematical problem solving, while GPQA evaluates difficult scientific questions.
+
+Benchmark results should be interpreted carefully because results can depend on the model configuration, prompting method, tool usage, and evaluation procedure.
+
+\section{Coding Capabilities}
+
+Kimi K2.5 is designed for software development and coding tasks.
+
+It can be used for:
+
+\begin{itemize}
+\item Code generation
+\item Code explanation
+\item Debugging
+\item Repository analysis
+\item Software engineering agents
+\item Coding from screenshots
+\item Tool-assisted coding
+\end{itemize}
+
+Some reported coding benchmark results are:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\hline
+Benchmark & Kimi K2.5 Score \\
+\hline
+SWE-Bench Verified & 76.8 \\
+SWE-Bench Multilingual & 73.0 \\
+Terminal-Bench 2.0 & 50.8 \\
+LiveCodeBench v6 & 85.0 \\
+SciCode & 48.7 \\
+\hline
+\end{tabular}
+\caption{Selected coding benchmark results}
+\end{table}
+
+SWE-Bench is especially relevant because it evaluates software engineering tasks using real repositories and issues rather than only asking the model to generate isolated code snippets.
+
+8. Agentic Workflows
+
+One of the most interesting features of Kimi K2.5 is its support for agentic workflows.
+
+An AI agent is a system that can reason about a task, use tools, perform actions, and continue working toward a goal.
+
+A simple LLM workflow can be represented as:
+
+\[
+\text{User}
+\rightarrow
+\text{LLM}
+\rightarrow
+\text{Answer}
+\]
+
+An agentic workflow is more complex:
+
+\[
+\text{User}
+\rightarrow
+\text{Agent}
+\rightarrow
+\text{Reason}
+\rightarrow
+\text{Use Tools}
+\rightarrow
+\text{Observe Results}
+\rightarrow
+\text{Reason Again}
+\rightarrow
+\text{Final Answer}
+\]
+
+Kimi K2.5 introduces an approach called Agent Swarm.
+
+The main idea is that a complex task can be divided into several smaller tasks that can be handled by specialized agents.
+
+For example:
+
+\[
+\begin{array}{c}
+\text{Main Agent} \\
+\downarrow \\
+\begin{array}{ccc}
+\text{Research Agent} &
+\text{Coding Agent} &
+\text{Analysis Agent}
+\end{array} \\
+\downarrow \\
+\text{Main Agent} \\
+\downarrow \\
+\text{Final Result}
+\end{array}
+\]
+
+This can be useful for research, coding, browsing, and other tasks that can be divided into independent subtasks.
+
+Moonshot reports improved results on some search benchmarks when Agent Swarm and context management are used.
+
+For example:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\hline
+Benchmark & Reported Score \\
+\hline
+BrowseComp & 60.6 \\
+BrowseComp + Context Management & 74.9 \\
+BrowseComp + Agent Swarm & 78.4 \\
+WideSearch & 72.7 \\
+WideSearch + Agent Swarm & 79.0 \\
+\hline
+\end{tabular}
+\caption{Selected agentic benchmark results}
+\end{table}
+
+\section{Efficiency}
+
+The MoE architecture is one of the main reasons Kimi K2.5 can have a very large number of total parameters while keeping the number of activated parameters relatively smaller.
+
+For every token, only selected experts are activated.
+
+In simplified form:
+
+\[
+\text{Input Token}
+\rightarrow
+\text{Router}
+\rightarrow
+\text{Selected Experts}
+\rightarrow
+\text{Output}
+\]
+
+Kimi K2.5 has approximately 1 trillion total parameters but activates approximately 32 billion parameters per token.
+
+This improves computational efficiency compared with activating all 1 trillion parameters for every token.
+
+However, the model is still very large from a deployment perspective.
+
+Therefore, there is a difference between:
+
+\begin{itemize}
+\item \textbf{Inference computation}: reduced through sparse expert activation.
+\item \textbf{Memory requirement}: still very high because the model contains approximately 1 trillion parameters.
+\end{itemize}
+
+\section{Hardware and Deployment}
+
+Kimi K2.5 is significantly larger than models normally deployed on a personal computer.
+
+Moonshot AI provides deployment information for frameworks such as:
+
+\begin{itemize}
+\item vLLM
+\item SGLang
+\item KTransformers
+\end{itemize}
+
+The documented vLLM deployment configuration includes multiple high-memory GPUs.
+
+A reported BF16 deployment configuration uses 8 NVIDIA H200 GPUs.
+
+Therefore, running the full model locally is not practical for most students using normal laptops or desktop computers.
+
+For most developers, using an API is considerably easier.
+
+The practical options are:
+
+\[
+\text{Kimi K2.5}
+\rightarrow
+\begin{cases}
+\text{Cloud/API} & \text{Practical for most developers}\\
+\text{Large GPU Cluster} & \text{Possible for large deployments}\\
+\text{Local Deployment} & \text{Requires substantial hardware}
+\end{cases}
+\]
+
+\section{API Availability}
+
+Kimi K2.5 can be accessed through Moonshot AI's ecosystem and third-party inference platforms.
+
+OpenRouter provides an API interface for accessing different LLMs.
+
+However, model availability on third-party platforms can change.
+
+At the time of this research, the OpenRouter page for Kimi K2.5 indicates that the listed endpoint is going away after September 7, 2026.
+
+Therefore, developers should verify the current API availability before building a production application that depends specifically on Kimi K2.5.
+
+This is also an example of why an application should avoid tightly coupling its code to one model provider.
+
+\section{Licensing}
+
+Kimi K2.5 is released under a Modified MIT License.
+
+The license provides permissions similar to the MIT license but includes an additional attribution requirement for extremely large commercial products or services.
+
+Before using Kimi K2.5 in a commercial application, developers should read the current license carefully and verify that their use case satisfies the license requirements.
+
+\section{Comparison with Other Open or Openly Available Models}
+
+Kimi K2.5 can be compared with other open or openly available models such as GPT-OSS-20B, Qwen3-30B-A3B, and Llama 4 Maverick.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\hline
+Model & Size & Context & Multimodal \\
+\hline
+Kimi K2.5 & $\sim$1T total / 32B active & 256K & Yes \\
+GPT-OSS-20B & $\sim$21B / 3.6B active & 131K & No \\
+Qwen3-30B-A3B & $\sim$30.5B / 3.3B active & 262K & No \\
+Llama 4 Maverick & Large MoE & Up to 1M & Yes \\
+\hline
+\end{tabular}
+\caption{High-level comparison of selected models}
+\end{table}
+
+The models have different design goals.
+
+Kimi K2.5 focuses strongly on:
+
+\begin{itemize}
+\item Multimodal reasoning
+\item Coding
+\item Long context
+\item Agentic workflows
+\end{itemize}
+
+GPT-OSS-20B focuses more on efficient reasoning and coding with a much smaller active parameter count.
+
+Qwen3-30B-A3B provides a relatively efficient MoE architecture with a long context window.
+
+Llama 4 models provide large-scale multimodal capabilities and very large context windows.
+
+Therefore, there is no single model that is best for every application. The appropriate model depends on the requirements of the application, available hardware, cost, latency, and required capabilities.
+
+\section{Practical Applications}
+
+Kimi K2.5 can be used in several practical applications.
+
+\subsection{Coding assistants}
+
+It can help developers:
+
+\begin{itemize}
+\item Generate code
+\item Debug code
+\item Explain code
+\item Analyze repositories
+\item Solve software engineering issues
+\end{itemize}
+
+\subsection{Multimodal applications}
+
+It can be used for:
+
+\begin{itemize}
+\item Image analysis
+\item Document understanding
+\item Screenshot analysis
+\item Visual question answering
+\item Visual debugging
+\end{itemize}
+
+\subsection{Research agents}
+
+Agent Swarm makes the model suitable for research systems where a large problem can be divided into multiple smaller research tasks.
+
+For example:
+
+\[
+\text{Research Question}
+\rightarrow
+\begin{cases}
+\text{Agent 1: Find papers}\\
+\text{Agent 2: Analyze experiments}\\
+\text{Agent 3: Compare results}\\
+\text{Agent 4: Summarize evidence}
+\end{cases}
+\rightarrow
+\text{Final Research Report}
+\]
+
+\subsection{Long-document analysis}
+
+The large context window makes Kimi K2.5 suitable for applications involving:
+
+\begin{itemize}
+\item Large technical documents
+\item Software repositories
+\item Research papers
+\item Long conversations
+\item Large collections of related information
+\end{itemize}
+
+\section{Current Limitations}
+
+Although Kimi K2.5 is a powerful model, it has several limitations.
+
+First, its approximately 1 trillion total parameters make local deployment difficult and expensive.
+
+Second, benchmark results should not be interpreted as a perfect measure of real-world performance. Results depend on the benchmark, prompting strategy, tools, sampling configuration, and evaluation procedure.
+
+Third, agentic workflows can increase latency and token usage because solving a task may require multiple reasoning steps or multiple agents.
+
+Fourth, a large context window does not guarantee perfect reasoning over all provided information.
+
+Finally, API availability can change. Developers should check the current provider and model availability before depending on Kimi K2.5 in production.
+
+\section{Conclusion}
+
+Kimi K2.5 is a large Mixture-of-Experts model that combines language understanding, multimodal capabilities, reasoning, coding, and agentic workflows.
+
+Its approximately 1 trillion total parameters and approximately 32 billion active parameters demonstrate the use of sparse Mixture-of-Experts architecture.
+
+Its 256K-token context window makes it suitable for long-context applications, while its native multimodal capabilities allow it to work with visual information.
+
+One of its most interesting features is Agent Swarm, where complex tasks can be divided between multiple specialized agents.
+
+Kimi K2.5 is therefore particularly relevant to modern AI applications involving:
+
+\begin{itemize}
+\item AI coding assistants
+\item Multimodal AI
+\item Research agents
+\item Software engineering agents
+\item Long-context applications
+\item Tool-using AI systems
+\end{itemize}
+
+However, its large model size means that local deployment requires significant hardware. For most individual developers, API access is a more practical approach.
+
+Overall, Kimi K2.5 demonstrates the current direction of advanced LLM development: moving from models that simply generate text toward systems that can understand multiple modalities, reason about complex problems, use tools, write code, and coordinate multiple agents.
+
+\end{document}

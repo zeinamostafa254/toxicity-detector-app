@@ -1,0 +1,17 @@
+[project]
+name = "kimi-toxic-content-detection"
+version = "0.1.0"
+description = "Toxic content detection with LangChain, OpenRouter, and Streamlit"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=1.2,<2",
+    "langchain-openrouter>=0.2.8,<0.3",
+    "openai>=3.16.2",
+    "pydantic>=2.10,<3",
+    "python-dotenv>=1.0,<2",
+    "streamlit>=1.45,<2",
+]
+
+[tool.uv]
+package = false
