@@ -8,7 +8,6 @@ A simple toxic-content classification application built with LangChain, OpenRout
 - LangChain
 - `langchain-openrouter`
 - OpenRouter
-- OpenAI `gpt-oss-20b`
 - Pydantic structured output
 - Streamlit
 - Docker
