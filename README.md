@@ -47,10 +47,6 @@ docker run --rm -p 8501:8501 --env-file .env toxic-content-detector
 
 Open `http://localhost:8501`.
 
-## Model
-
-The default model is `openai/gpt-oss-20b`. It is an open-weight MoE model with structured-output and tool-calling support on OpenRouter. The model can be changed through `OPENROUTER_MODEL` without changing the application code.
-
 ## Classification
 
 The application performs binary classification:
